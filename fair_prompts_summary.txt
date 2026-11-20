@@ -1,0 +1,18 @@
+Check this over, flag any bugs, errors, logical inconsistencies etc
+Why are there so many municipality splits, what can I do to reduce them
+Is this gonna leave any precincts stuck or unassigned
+Check precincts are assigned only once, districts are contiguous, and populations are within +-5%
+Check that population balance and contiguity are preserved when splitting regions
+Anything that can be simplified?
+Does the csv match correctly
+Give me some prompts for testing and debugging: 
+Check for logical inconsistencies between the map-generation algorithm and its validation checks.
+Compare runtime when generating 5, 10, and 20 candidates, and explain whether additional candidates improve the scores.
+Identify repeated calculations that could be simplified without changing the results.
+Restart the kernel and run every cell in order to check for dependencies on previously executed cells.
+Check that failed attempts stop at the intended limit instead of running indefinitely.
+Verify that population totals match between the original data and the completed map.
+Check whether any functions accidentally modify data used by later attempts.
+
+For fairness, I focused on combining geographic neutrality and keeping municipalities together. I did not use election results to favor a party. The code checks that every precinct is assigned exactly once, districts are contiguous, and district populations are within ±5% of the ideal population. Among maps that meet these requirements, preserving municipalities comes first, followed by compactness. I initially tried growing districts, but it was hard to complete the map while also limiting municipality splits. Instead, I divided connected groups of precincts into smaller, population-balanced regions. The code generates multiple candidate maps and selects the one with the lowest municipality split penalty. Average compactness is used to break ties. It runs checks to validate the selected map before exporting it. 
+
